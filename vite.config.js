@@ -8,10 +8,9 @@ export default defineConfig({
   plugins: [vue(),VitePWA({registerType: 'prompt', manifest: {
     "icons": [
       {
-        "src": "icons/512.png",
+        "src": "icons/Eevee_app_icon.png",
         "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "maskable"
+        "type": "image/png"
       }
     ]
   }})],
