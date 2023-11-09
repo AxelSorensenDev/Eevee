@@ -1,0 +1,110 @@
+<script>
+export default {
+  data() {
+    return {
+      selectedLabelIndex: 0,
+      currentSentenceId: 0,
+    }
+  },
+  props: {
+    page: String,
+    data: Array,
+    tasks: Array,
+    selectedTaskId: Number
+  },
+  methods: {
+    setLabel(word) {
+      if (word.UPOS == this.selectedLabel) {
+        word.UPOS = null
+      } else {
+        word.UPOS = this.selectedLabel
+      }
+    },
+    highlight(UPOS) {
+      switch (UPOS) {
+        case 'VERB':
+          return 'bg-green-400 p-2 text-white'
+        case 'ADJ':
+          return 'bg-orange-400 p-2 text-white'
+        case 'NOUN':
+          return 'bg-blue-400 p-2 text-white'
+
+        default:
+          break;
+      }
+    },
+    word_highlight(UPOS) {
+      switch (UPOS) {
+        case 'VERB':
+          return 'text-green-500 font-bold'
+        case 'ADJ':
+          return 'text-orange-500 font-bold'
+        case 'NOUN':
+          return 'text-blue-500 font-bold'
+
+        default:
+          break;
+      }
+    },
+
+    handleKeyDown(event) {
+      // Do something
+
+      if (0 < parseInt(event.key) && parseInt(event.key) < this.tasks[this.selectedTaskId].labels.length + 1) {
+        this.selectedLabelId = 1
+      }
+
+    },
+
+
+  },
+  created: function () {
+    window.addEventListener('keypress', this.handleKeyDown)
+  },
+}
+</script>
+
+<template>
+  <div class="flex flex-col h-screen items-center justify-center bg-gray-100">
+    <div class="w-[80vw] h-96 grid grid-rows-[60px,1fr] rounded-md">
+      <div class="bg-purple-500 flex justify-between p-2 rounded-t-md">
+        <div class="flex gap-2">
+          <div class="rounded-md p-2 px-6 border border-white border-1 font-bold text-center relative select-none"
+            :class="index == selectedLabelIndex ? 'bg-white text-purple-500' : 'text-white hover:bg-purple-400 cursor-pointer'" v-for="label, index in tasks[selectedTaskId]?.labels" @click="this.selectedLabelIndex = index">
+            <p class="absolute text-xs top-0 left-1 p-1">{{ index + 1 }}</p>
+            {{ label }}
+          </div>
+
+        </div>
+        <div type="file" ref="fileupload" multiple
+          class="p-2 cursor-pointer text-white flex items-center rounded-md hover:bg-purple-500 border-white border border-white border-1 font-bold select-none"
+          @click="readFile">Import</div>
+      </div>
+      {{ data[currentSentenceId].words }}
+      <div class="justify-center items-center flex bg-white rounded-b-md">
+        <div v-if="data.length > 0" class="flex justify-center items-end  rounded-b-md gap-1 flex-wrap gap-y-4 m-8">
+          <span v-for="word in data[currentSentenceId]?.words"
+            class="cursor-pointer rounded-md select-none relative p-2 text-center min-w-[6ch]"
+            :class="highlight(word.UPOS) ? highlight(word.UPOS) : 'hover:bg-gray-300'" @click="setLabel(word)">
+            <p v-if="labels.includes(word.UPOS)" class="text-center font-bold text-xs">{{ word.UPOS }}</p>
+            <p v-else class="text-center text-white font-bold text-xs">{{ selectedLabel }}</p>
+            {{ word }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center items-end  rounded-b-md gap-1 flex-wrap gap-y-4 m-8">
+
+      <span v-for="word in data[currentSentenceId]?.words" class="select-none text-center"
+        :class="word_highlight(word.UPOS)">
+        {{ word.FORM }}
+      </span>
+    </div>
+    <div class="flex gap-2 w-[20%] justify-around h-16 items-center rounded-md font-medium text-gray-500 select-none">
+      <div class="bg-gray-200 p-4 px-8 rounded-md cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+        @click="currentSentenceId > 0 ? currentSentenceId-- : null">Prev</div>
+      <div class="bg-gray-200 p-4 px-8 rounded-md cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+        @click="currentSentenceId < data.length ? currentSentenceId++ : null">Next</div>
+    </div>
+  </div>
+</template>
