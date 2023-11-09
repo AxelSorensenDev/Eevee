@@ -15,16 +15,17 @@ export default {
         <h1 class="text-3xl text-gray-700">An Easy Annotation Tool</h1>
         <img class="w-10" src="../assets/Eevee.png" alt="">
       </div>
-      <p class="text-center text-gray-400 text-sm mt-2 font-medium">Version 2.9</p>
+      <p class="text-center text-gray-400 text-sm mt-2 font-medium">Version 2.8</p>
     </div>
     <div class="flex justify-center items-center flex-col gap-2">
       <div
         class="bg-purple-500 p-4 px-8 rounded-md cursor-pointer  text-white font-medium hover:bg-purple-600 w-56 text-center"
         @click="page.name = 'config'">
         Start Annotating</div>
-      <div
+      <a href="https://github.com/AxelSorensenDev/Eevee#readme" target="_blank"
         class="bg-gray-200 p-4 px-8 rounded-md cursor-pointer font-medium text-gray-500 hover:bg-gray-300 hover:text-gray-700 w-56 text-center">
-        Learn more</div>
+        Learn more
+      </a>
     </div>
   </div>
 </template>
