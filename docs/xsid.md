@@ -1,6 +1,8 @@
 ### Annotate slot and intent detection for a new language with Eevee
 
-[back to main README](../README.md)
+[Back to main README](../README.md)
+
+[This tutorial is also available as a video]()
 
 On this page we are going to describe how we can create a new evaluation set
 for an already existing benchmark. More conretely, we will assume 
