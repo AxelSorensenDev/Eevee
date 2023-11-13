@@ -61,9 +61,8 @@ export default {
       const labels = []
 
       this.data.map(data => {
-        if (this.tasks[this.selectedTaskId.value].type.name == 'class') {
+        if (this.tasks[this.selectedTaskId.value].type.name == 'class' || this.tasks[this.selectedTaskId.value].type.name == 'seq2seq') {
           const label = data.strings.find(string => string.name == this.tasks[this.selectedTaskId.value].output_index).string
-          console.log(data.strings)
           labels.push(label)
         }
         data.words.map(word => {
