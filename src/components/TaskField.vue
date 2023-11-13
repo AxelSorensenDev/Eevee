@@ -59,7 +59,13 @@ export default {
     },
     importLabels() {
       const labels = []
+
       this.data.map(data => {
+        if (this.tasks[this.selectedTaskId.value].type.name == 'class') {
+          const label = data.strings.find(string => string.name == this.tasks[this.selectedTaskId.value].output_index).string
+          console.log(data.strings)
+          labels.push(label)
+        }
         data.words.map(word => {
           if (word[this.tasks[this.selectedTaskId.value].output_index] != '_' && word[this.tasks[this.selectedTaskId.value].output_index] != undefined) {
 

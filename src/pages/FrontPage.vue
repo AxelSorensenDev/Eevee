@@ -15,7 +15,7 @@ export default {
         <h1 class="text-3xl text-gray-700">An Easy Annotation Tool</h1>
         <img class="w-10" src="../assets/Eevee.png" alt="">
       </div>
-      <p class="text-center text-gray-400 text-sm mt-2 font-medium">Version 2.8</p>
+      <p class="text-center text-gray-400 text-sm mt-2 font-medium">Version 0.1.0</p>
     </div>
     <div class="flex justify-center items-center flex-col gap-2">
       <div
