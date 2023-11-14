@@ -33,7 +33,7 @@ After starting up the annotation tool, we import the English training file with
 gold annotations. This allows us to easily create an Eevee task configuration by
 importing the labels. To do this, we click on the `import "Conll-like" file` button:
 
-[![import-conll](import-conll.png)]()
+<img src='import-conll.png' width='200px'>
 
 Now we add the slot detection task through clicking on the `add task +` button.
 We have to:
