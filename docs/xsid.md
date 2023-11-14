@@ -45,6 +45,7 @@ We have to:
 * we can now click import from column
 
 [![slot-detection](slot-detection.png)]()
+![](slot-detection.png | width=200)
 
 
 For the intent detection task, the procedure is highly similar. Note that the
