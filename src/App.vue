@@ -209,6 +209,7 @@ export default {
           if (type == 'txt') {
             try {
               let data = reader.result.split("\n")
+              data = data.filter(d => d != [])
               this.data = data.map((sentence, index) => {
                 const words = sentence.match(/\w+|[^\w\s]+/g).map((word, index) => {
                   return [index + 1, word]
