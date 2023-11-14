@@ -64,6 +64,7 @@ export default {
         if (this.tasks[this.selectedTaskId.value].type.name == 'class' || this.tasks[this.selectedTaskId.value].type.name == 'seq2seq') {
           const label = data.strings.find(string => string.name == this.tasks[this.selectedTaskId.value].output_index).string
           labels.push(label)
+          return
         }
         data.words.map(word => {
           if (word[this.tasks[this.selectedTaskId.value].output_index] != '_' && word[this.tasks[this.selectedTaskId.value].output_index] != undefined) {
