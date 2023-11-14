@@ -33,7 +33,7 @@ After starting up the annotation tool, we import the English training file with
 gold annotations. This allows us to easily create an Eevee task configuration by
 importing the labels. To do this, we click on the `import "Conll-like" file` button:
 
-<img src='import-conll.png' width='200px'>
+<img src='import-conll.png' width='400px'>
 
 Now we add the slot detection task through clicking on the `add task +` button.
 We have to:
@@ -44,13 +44,13 @@ We have to:
 * select the output column where the tool can write the annotation: 3
 * we can now click import from column
 
-[![slot-detection](slot-detection.png)]()
-![](slot-detection.png | width=200)
+<img src='slot-detection.png' width='400px'>
 
 
 For the intent detection task, the procedure is highly similar. Note that the
 input column is the same, and the output column is now identified with a string:
-[![slot-detection](intent-detection.png)]()
+
+<img src='intent-detection.png' width='400px'>
 
 ## Importing the data
 Now we can export the task configuration file, and either: 1) restart Eevee, and
@@ -65,7 +65,7 @@ the annotation page. We can select the task for which we want to annotate on the
 (or use arrow-up/arrow-down to navigate tasks). For the intent classification task, 
 ... . For the slot detection task, ...
 
-[![slot-detection](slot-intent-annotation.png)]()
+<img src='' width='400px'>
 
 
 
