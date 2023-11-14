@@ -220,10 +220,10 @@ export default {
       try {
         this.start = window.getSelection().anchorNode.parentElement.attributes.id.value
 
-        this.end = window.getSelection().extentNode.parentElement.attributes.id.value
+        this.end = window.getSelection().focusNode.parentElement.attributes.id.value
       } catch (error) {
         if (this.start && this.end == undefined) {
-          this.end = window.getSelection().extentNode.id - 1
+          this.end = window.getSelection().focusNode.id - 1
         }
       }
       if (!this.searchMode) {

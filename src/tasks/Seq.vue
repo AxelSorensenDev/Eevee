@@ -150,7 +150,7 @@ export default {
       this.word_index = undefined
       try {
         this.word_index = window.getSelection().anchorNode.parentElement.attributes.id.value
-        if (window.getSelection().extentNode.parentElement.attributes.id.value != this.word_index) {
+        if (window.getSelection().focusNode.parentElement.attributes.id.value != this.word_index) {
           this.word_index = null
           window.getSelection().removeAllRanges()
           return
