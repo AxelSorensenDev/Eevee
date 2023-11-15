@@ -20,6 +20,7 @@ allows for selection of the right label through the number keys on the
 keyboard. The search mode instead uses a pop-up box, in which the annotator can
 search for- and select a label. Both interfaces are shown in the screenshots
 below:
+
 <img src="docs/annotate-key.png" width="400px">
 <img src="docs/annotate-search.png" width="400px">
 
