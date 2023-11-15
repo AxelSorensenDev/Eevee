@@ -45,7 +45,7 @@ We have to:
 * select the output column where the tool can write the annotation: 3
 * we can now click import from column
 
-<img src="'slot-detection.png" width="400px">
+<img src="slot-detection.png" width="400px">
 
 
 For the intent detection task, the procedure is highly similar. Note that the
