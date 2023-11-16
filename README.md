@@ -27,7 +27,7 @@ below:
 Once the Eevee link has been visited once, the tool will be cached in the browser and can be used offline.
 The tool can also be downloaded from the browser as a Progressive Web Application, allowing it to be used as a native desktop app. 
 
-<img src="docs/install_app.png" width="200px">
+<img src="docs/install_app.png" width="400px">
 
 ### Shortcuts
 The main keyboard shortcuts are available in the annotation interface
