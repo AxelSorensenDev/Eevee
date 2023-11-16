@@ -8,7 +8,6 @@ There is no need to install, just go to https://axelsorensendev.github.io/Eevee/
 
 <img src="docs/slot-detection.png" width="400px">
 
-
 ### Annotation interface
 In the annotation interface, we can see an overview of the tasks on the left,
 and the current utterance with its annotation in the middle of the screen. We
@@ -24,12 +23,18 @@ below:
 <img src="docs/annotate-key.png" width="400px">
 <img src="docs/annotate-search.png" width="400px">
 
+## Offline use
+Once the Eevee link has been visited once, the tool will be cached in the browser and can be used offline.
+The tool can also be downloaded from the browser as a Progressive Web Application, allowing it to be used as a native desktop app. 
+
 ### Shortcuts
 The main keyboard shortcuts are available in the annotation interface
-* Arrows up/down: navigate through tasks
+* Arrows up/down: navigate between tasks (also used for navigating through labels in 'search mode')
 * Arrows left/right: navigate through data
-* Number keys: when less then 10 labels, they can be used to select labels
-* 
+* Number keys: when less than 10 labels, they can be used to select labels
+* Spacebar: mark an annotation instance as 'done'
+* Enter: select the highlighted label in the 'search mode' popup
+* Esc: close the 'search mode' popup
 
 ## Use-cases
 - [Annotate slot and intent detection for a new language](docs/xsid.md)
