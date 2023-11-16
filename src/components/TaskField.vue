@@ -72,6 +72,7 @@ export default {
             if (this.tasks[this.selectedTaskId.value].type.name == 'span') {
               const label = word[this.tasks[this.selectedTaskId.value].output_index].split('|')
               let bio_labels = []
+
               label.map(l => {
                 if (l != 'O') {
                   bio_labels.push(l.slice(2))
@@ -83,6 +84,7 @@ export default {
               const label = word[this.tasks[this.selectedTaskId.value].output_index].split('|')
               labels.push(...label)
             }
+
 
           }
         })
@@ -232,7 +234,7 @@ export default {
     </div>
     <div class="text-sm text-center flex justify-center items-center h-full text-gray-500" v-else>
       <div>
-        <p class="">There are currently no tasks<br>Add new task or import a task file in the left panel</p>
+        <p class="">There are currently no tasks<br>Add new task or import a config file in the left panel</p>
       </div>
     </div>
   </div>

@@ -63,11 +63,11 @@ export default {
         <div class="flex flex-col gap-2">
           <div v-if="page.name == 'config'" @click="$emit('importTaskFile')"
             class="text-gray-500 bg-gray-200 w-full h-10 p-4 text-sm rounded-md items-center justify-between gap-2 flex hover:bg-gray-300 cursor-pointer">
-            Import task file<font-awesome-icon icon="fa-solid fa-file-import" class="text-lg" /></div>
+            Import config file<font-awesome-icon icon="fa-solid fa-file-import" class="text-lg" /></div>
           <div v-if="page.name == 'config'"
             class="text-gray-500 bg-gray-200 w-full h-10 p-4 text-sm rounded-md items-center justify-between gap-2 flex hover:bg-gray-300 cursor-pointer"
             :class="{ 'opacity-50 pointer-events-none': tasks.length == 0 }" @click="$emit('exportTaskFile')">
-            Export task file<font-awesome-icon icon="fa-solid fa-file-arrow-down" class="text-lg" /></div>
+            Export config file<font-awesome-icon icon="fa-solid fa-file-arrow-down" class="text-lg" /></div>
           <div v-if="page.name == 'config'" class="flex items-center justify-center p-2">
             <hr class="rounded-full">
           </div>

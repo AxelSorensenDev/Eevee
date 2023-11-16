@@ -189,7 +189,7 @@ export default {
 
             this.selectedTaskId.value = 0
           } else {
-            alert('The chosen file does not follow the correct structure of a task file.')
+            alert('The chosen file does not follow the correct structure of a config file.')
           }
         });
         reader.readAsText(e.target.files[0]);
@@ -271,7 +271,7 @@ export default {
     },
     exportTaskFile() {
       let file = JSON.stringify(this.tasks, undefined, 2)
-      this.$refs.myModal.createModal('Export task file', `What would you like to name the file?`, [{ text: 'Cancel', action: () => this.$refs.myModal.modal.isOpen = false }, { text: 'Save file', action: () => { this.download(file, this.fileName.value + '.json', 'json'); this.$refs.myModal.modal.isOpen = false }, color: 'bg-purple-500 hover:bg-purple-600' }], true, 'json')
+      this.$refs.myModal.createModal('Export config file', `What would you like to name the file?`, [{ text: 'Cancel', action: () => this.$refs.myModal.modal.isOpen = false }, { text: 'Save file', action: () => { this.download(file, this.fileName.value + '.json', 'json'); this.$refs.myModal.modal.isOpen = false }, color: 'bg-purple-500 hover:bg-purple-600' }], true, 'json')
 
 
     },
