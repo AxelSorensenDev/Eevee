@@ -31,7 +31,7 @@ export default {
     jumpToProgress() {
       for (let i = 0; i < this.data.length - 1; i++) {
         const status = JSON.parse(this.data[i].strings.find(string => string.name == '# status').string)[this.selectedTaskId.value.toString()]
-        console.log(status)
+
         if (status != 'accepted') {
           this.currentSentenceId.value = i
           return

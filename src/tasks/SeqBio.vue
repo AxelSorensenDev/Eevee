@@ -140,11 +140,13 @@ export default {
       for (let i = start; i <= end; i++) {
         if (i == start) {
           this.data[currentSentenceId.value].words[i][this.tasks[this.selectedTaskId.value].output_index] = 'B-' + label
-          console.log(label)
+
         } else {
           this.data[currentSentenceId.value].words[i][this.tasks[this.selectedTaskId.value].output_index] = 'I-' + label
         }
       }
+      this.start = null
+      this.end = null
 
 
     },
@@ -229,6 +231,7 @@ export default {
       if (!this.searchMode) {
         this.setBioLabel(Math.min(this.start, this.end), Math.max(this.start, this.end), this.currentSentenceId, this.tasks[this.selectedTaskId.value].labels[this.selectedLabelId.value])
         window.getSelection().removeAllRanges()
+
         return
       }
 
@@ -274,6 +277,7 @@ export default {
         this.start = undefined;
         this.end = undefined;
       }
+
 
     },
     handleKeyDown(event) {
