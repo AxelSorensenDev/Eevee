@@ -42,7 +42,6 @@ The main keyboard shortcuts are available in the annotation interface
 
 ## Use-cases
 - [Annotate slot and intent detection for a new language](docs/xsid.md)
-- 
 
 ## Compatability with other services
 ### Datasets library
