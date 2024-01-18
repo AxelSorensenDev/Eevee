@@ -4,6 +4,8 @@
 There is no need to install, just go to https://axelsorensendev.github.io/Eevee/ and get started!
 
 ## Usage
+A quick introductory video is available on https://www.youtube.com/watch?v=HsOsfckvnQo
+
 ### Setup page
 On the setup page the user can define the annotation environment. Tasks can be configured in the task field allowing the user to specify the input column (for the input text) and output column (for the target task), as well as adding the desired labels. Labels can also be imported automatically from the annotated file (if it already contains annotations), and a default label can be set for empty annotations. For utterance level tasks (i.e.\ classification), the annotation is not saved in a column, but instead 
 stored in a comment above the text, in the form '# intent = inform'. The tool allows to import and export all settings to 'config files', which are configuration files to allow users to create and import predefined tasks. Once a dataset has been imported, the tabularic data field offers a simple overview of the raw data  belonging to each utterance. The user can add new columns or remove existing ones to achieve the desired result. Once the data and tasks are ready, the user simply clicks 'Annotate' to start. 
