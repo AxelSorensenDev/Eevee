@@ -45,7 +45,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="modal.isOpen" class="w-full flex justify-center items-center h-screen absolute bg-black bg-opacity-20 z-[1]">
+  <div v-show="modal.isOpen"
+    class="w-full flex justify-center items-center h-screen absolute bg-black bg-opacity-20 z-[1]">
     <div class="bg-white w-[60%] max-w-[400px] rounded-md z-[2]">
       <div class="gap-2 p-4 flex flex-col">
         <p class="font-bold text-gray-700">{{ modal.primaryText }}</p>
@@ -70,8 +71,9 @@ export default {
           class="bg-white px-4 p-2 rounded-md ring-inset ring-1 text-sm ring-gray-300 font-semibold text-gray-700 hover:bg-gray-100"
           @click="modal.buttons[0]?.action">{{ modal.buttons[0]?.text }}</button>
         <button :class="modal.buttons[1]?.color"
-          class="px-4 p-2 rounded-md ring-gray-300 text-white font-semibold text-sm" @click="modal.buttons[1]?.action">{{
-            modal.buttons[1]?.text }}</button>
+          class="px-4 p-2 rounded-md ring-gray-300 text-white font-semibold text-sm"
+          @click="modal.buttons[1]?.action">{{
+    modal.buttons[1]?.text }}</button>
       </div>
     </div>
   </div>

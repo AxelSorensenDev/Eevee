@@ -135,7 +135,7 @@ export default {
                     *</p>Column index:
                 </label>
                 <input @input="" v-model="tasks[selectedTaskId.value].input_index" :class="inputInRange ? 'text-red-500'
-                  : null" class="bg-gray-100 outline-none w-10 p-2 rounded-sm text-center" type="text" placeholder="0">
+      : null" class="bg-gray-100 outline-none w-10 p-2 rounded-sm text-center" type="text" placeholder="0">
               </div>
 
             </div>
@@ -223,7 +223,8 @@ export default {
                 class="group text-white bg-purple-500 text-sm p-1 px-2 rounded-md h-7 hover:bg-purple-600 cursor-pointer whitespace-pre"
                 @click="$emit('deleteLabel', label)" v-for="label in tasks[selectedTaskId.value].labels">
                 {{ label
-                }}<font-awesome-icon class="text-purple-800 ml-2 group-hover:text-purple-300" icon="fa-solid fa-xmark" />
+                }}<font-awesome-icon class="text-purple-800 ml-2 group-hover:text-purple-300"
+                  icon="fa-solid fa-xmark" />
               </div>
 
             </div>

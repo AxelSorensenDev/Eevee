@@ -1,30 +1,29 @@
-
-
 <template>
   <div class="grid grid-rows-[fit-content] rounded-md mx-auto w-[calc(100vw-250px-64px)]">
     <div class="bg-purple-500 flex justify-end p-2 rounded-t-md">
-      <div v-if="this.tasks[this.selectedTaskId.value]?.labels.length <= 9"
-        class="items-center justify-center flex gap-2">
-        <div class="group cursor-pointer " @click="searchMode = false; searchBarOpen.value = false">
+      <div class="items-center justify-center flex gap-2">
+        <div class="group cursor-pointer " v-if="this.tasks[this.selectedTaskId.value]?.labels.length <= 9"
+          @click="taskSearchMode.value[this.selectedTaskId.value] = false; searchBarOpen.value = false">
           <font-awesome-icon class="mr-2 text-lg"
-            :class="!searchMode ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
+            :class="!taskSearchMode.value[this.selectedTaskId.value] ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
             icon="fa-solid fa-rectangle-list" />
         </div>
-        <div class="group cursor-pointer" @click="searchMode = true;">
+        <div class="group cursor-pointer" @click="taskSearchMode.value[this.selectedTaskId.value] = true;">
           <font-awesome-icon class="mr-2 text-lg"
-            :class="searchMode ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
+            :class="taskSearchMode.value[this.selectedTaskId.value] ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
             icon="fa-solid fa-search" />
         </div>
       </div>
     </div>
-    <div :class="!searchMode ? 'rounded-b-md' : null" class="justify-center items-center flex bg-white flex-col">
+    <div :class="!taskSearchMode.value[this.selectedTaskId.value] ? 'rounded-b-md' : null"
+      class="justify-center items-center flex bg-white flex-col">
       <div v-if="data.length > 0" class="flex justify-center items-end  rounded-b-md gap-1 flex-wrap gap-y-4 m-8">
         <span v-for="word in data[currentSentenceId.value]?.words" class="text-center">
           {{ word[tasks[selectedTaskId.value].input_index] }}
         </span>
       </div>
 
-      <div v-if="!searchMode" class="flex flex-wrap gap-4 w-full p-4">
+      <div v-if="!taskSearchMode.value[this.selectedTaskId.value]" class="flex flex-wrap gap-4 w-full p-4">
         <div
           class="rounded-md p-2 px-6 ring-purple-500 ring-2 font-bold text-center text-purple-500 relative select-none flex-grow"
           :class="tasks[selectedTaskId.value].labels[index] == data[currentSentenceId.value]?.strings.find(string => string.name == tasks[selectedTaskId.value].output_index).string ? 'bg-purple-500 text-white' : ' hover:bg-purple-100 cursor-pointer'"
@@ -36,7 +35,7 @@
 
       </div>
     </div>
-    <div v-if="searchMode" class="px-6 bg-white">
+    <div v-if="taskSearchMode.value[this.selectedTaskId.value]" class="px-6 bg-white">
       <div
         :class="(tasks[selectedTaskId.value].labels.includes(data[currentSentenceId.value].strings.find(string => string.name
           ==
@@ -50,7 +49,7 @@
             tasks[selectedTaskId.value].output_index).string : '?' }}
       </div>
     </div>
-    <div v-if="searchMode" ref="search_container" class="justify-center flex-col">
+    <div v-if="taskSearchMode.value[this.selectedTaskId.value]" ref="search_container" class="justify-center flex-col">
       <div class=" bg-white z-[1] rounded-b-md p-4" ref="search">
         <div class="flex justify-between items-center relative">
 
@@ -60,7 +59,8 @@
         </div>
         <div class="max-w-[400px] mx-auto">
           <div class="flex gap-4 items-center relative">
-            <div v-if="!inputFocused" class="group cursor-pointer absolute" @click="searchMode = true;">
+            <div v-if="!inputFocused" class="group cursor-pointer absolute"
+              @click="taskSearchMode.value[this.selectedTaskId.value] = true;">
               <font-awesome-icon class="pb-3 text-purple-300" icon=" fa-solid fa-search" />
             </div>
             <input @focus="inputFocused = true; searchBarOpen.value = true" @input="listIndex.value = 0"
@@ -83,11 +83,11 @@
               @click="$nextTick(() => { data[currentSentenceId.value].strings.find(string => string.name == tasks[selectedTaskId.value].output_index).string = filteredLabels[index]; search.value = '' }); inputFocused = false; this.searchBarOpen.value = false"
               :ref="index" :class="index == listIndex.value ? 'bg-gray-100 font-bold' : null">
               <div class="bg-purple-100 text-xs w-6 rounded-full flex justify-center items-center h-6">{{
-                label[0].toLowerCase()
-              }}
+          label[0].toLowerCase()
+        }}
               </div>
               {{
-                label }}
+            label }}
             </div>
           </div>
 
@@ -102,11 +102,11 @@
 export default {
   data() {
     return {
-      searchMode: this.tasks[this.selectedTaskId.value]?.labels.length > 9,
       inputFocused: false,
     }
   },
   props: {
+    taskSearchMode: Object,
     data: Array,
     tasks: Array,
     selectedTaskId: Object,
@@ -135,7 +135,7 @@ export default {
 
     },
     handleKeyDown(event) {
-      if (event.keyCode == 13 && this.searchMode) {
+      if (event.keyCode == 13 && this.taskSearchMode.value[this.selectedTaskId.value]) {
         if (this.filteredLabels[this.listIndex.value]) {
           this.data[this.currentSentenceId.value].strings.find(string => string.name == this.tasks[this.selectedTaskId.value].output_index).string = this.filteredLabels[this.listIndex.value]
         }

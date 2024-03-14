@@ -1,5 +1,3 @@
-
-
 <template>
   <div v-if="searchBarOpen.value" class=" bg-white z-[1] rounded-md absolute shadow-lg p-4 pb-0" ref="search"
     :style="{ top: position.y + 'px', left: position.x + 'px' }">
@@ -22,11 +20,12 @@
       <div @mouseover="listIndex.value = index" v-for="label, index in  filteredLabels "
         class="flex justify-between items-center text-sm p-2 w-[90%] cursor-pointer" @click="addLabel" :ref="index"
         :class="index == listIndex.value ? 'bg-gray-100 font-bold' : null">
-        <div class="bg-purple-100 text-xs w-6 rounded-full flex justify-center items-center h-6">{{ label[0].toLowerCase()
-        }}
+        <div class="bg-purple-100 text-xs w-6 rounded-full flex justify-center items-center h-6">{{
+    label[0].toLowerCase()
+  }}
         </div>
         {{
-          label }}
+      label }}
       </div>
     </div>
   </div>
@@ -34,7 +33,8 @@
   <div class="grid grid-rows-[fit-content] rounded-md mx-auto w-[calc(100vw-250px-64px)]">
     <div class="bg-purple-500 flex justify-between p-2 rounded-t-md min-h-[40px]">
       <div class="flex gap-2 flex-wrap">
-        <div v-if="!searchMode" class="rounded-md p-2 px-6 border border-white border-1 font-bold text-center relative"
+        <div v-if="!taskSearchMode.value[selectedTaskId.value]"
+          class="rounded-md p-2 px-6 border border-white border-1 font-bold text-center relative"
           :class="index == selectedLabelId.value ? 'bg-white text-purple-500' : 'text-white hover:bg-purple-400 cursor-pointer'"
           v-for="   label, index  in  tasks[selectedTaskId.value]?.labels.sort()   "
           @click="this.selectedLabelId.value = index">
@@ -43,16 +43,16 @@
         </div>
 
       </div>
-      <div v-if="this.tasks[this.selectedTaskId.value]?.labels.length <= 9"
-        class="items-center justify-center flex gap-2">
-        <div class="group cursor-pointer " @click="searchMode = false">
+      <div class="items-center justify-center flex gap-2">
+        <div class="group cursor-pointer " v-if="this.tasks[this.selectedTaskId.value]?.labels.length <= 9"
+          @click="taskSearchMode.value[this.selectedTaskId.value] = false">
           <font-awesome-icon class="mr-2 text-lg"
-            :class="!searchMode ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
+            :class="!taskSearchMode.value[this.selectedTaskId.value] ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
             icon="fa-solid fa-rectangle-list" />
         </div>
-        <div class="group cursor-pointer" @click="searchMode = true">
+        <div class="group cursor-pointer" @click="taskSearchMode.value[this.selectedTaskId.value] = true">
           <font-awesome-icon class="mr-2 text-lg"
-            :class="searchMode ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
+            :class="taskSearchMode.value[this.selectedTaskId.value] ? 'text-purple-200' : 'group-hover:text-purple-400 text-purple-800'"
             icon="fa-solid fa-search" />
         </div>
       </div>
@@ -74,9 +74,9 @@
             {{ word[tasks[selectedTaskId.value].input_index] }}</span>
           <span v-if="tasks[selectedTaskId.value]?.labels.includes((word[tasks[selectedTaskId.value].output_index]))"
             class="text-xs text-purple-800 font-semibold text-ellipsis bg-yellow-200">
-            <p @click="this.word_index = index; if (!searchMode) { setLabel(this.tasks[this.selectedTaskId.value].labels[this.selectedLabelId.value]) }"
+            <p @click="this.word_index = index; if (!taskSearchMode.value[this.selectedTaskId.value]) { setLabel(this.tasks[this.selectedTaskId.value].labels[this.selectedLabelId.value]) }"
               class="p-2 truncate max-w-[20ch]">{{
-                word[tasks[selectedTaskId.value].output_index] }}
+    word[tasks[selectedTaskId.value].output_index] }}
             </p>
           </span>
 
@@ -94,11 +94,11 @@ export default {
       position: { x: 0, y: 0 },
       start: null,
       end: null,
-      searchMode: this.tasks[this.selectedTaskId.value]?.labels.length > 9
 
     }
   },
   props: {
+    taskSearchMode: Object,
     data: Array,
     tasks: Array,
     selectedTaskId: Object,
@@ -159,7 +159,7 @@ export default {
       } catch (error) {
 
       }
-      if (!this.searchMode) {
+      if (!this.taskSearchMode.value[this.selectedTaskId.value]) {
         this.setLabel(this.tasks[this.selectedTaskId.value].labels[this.selectedLabelId.value])
         window.getSelection().removeAllRanges()
         this.word_index = undefined
@@ -204,7 +204,7 @@ export default {
     },
     handleKeyDown(event) {
       if (event.keyCode == 13) {
-        if (this.searchMode) {
+        if (this.taskSearchMode.value[this.selectedTaskId.value]) {
           if (this.searchBarOpen.value) {
             this.addLabel()
           }
@@ -226,9 +226,14 @@ export default {
 
   },
 
+
   created() {
     window.addEventListener("click", this.clickAway);
     window.addEventListener("keydown", this.handleKeyDown);
+
+    if (this.tasks[this.selectedTaskId.value]?.labels.length > 9) {
+      this.taskSearchMode.value[this.selectedTaskId.value] = true
+    }
 
   },
   beforeUnmount() {

@@ -26,7 +26,8 @@ export default {
       taskTypes: [{ name: 'seq', isWordLevel: true }, { name: 'span', isWordLevel: true }, { name: 'class', isWordLevel: false }, { name: 'seq2seq', isWordLevel: false }],
       searchingSentence: { value: false },
       fileName: { value: null },
-      searchBarOpen: { value: false }
+      searchBarOpen: { value: false },
+      taskSearchMode: { value: [] }
     };
   },
   methods: {
@@ -129,14 +130,16 @@ export default {
       ])));
     },
     addTask() {
-      this.tasks.push({ title: "Untitled task", type: this.taskTypes[0], output_index: null, input_index: null, labels: [] });
+      this.tasks.push({ title: "Untitled task", type: this.taskTypes[0], output_index: '', input_index: '', labels: [] });
       this.updateIDs();
       this.selectedTaskId.value = this.tasks.length - 1;
+      this.taskSearchMode.value.push(false)
     },
     deleteTask(id) {
       this.tasks = this.tasks.filter((obj) => obj.id !== id);
       this.updateIDs();
       this.selectedTaskId.value = this.tasks.length - 1;
+      this.taskSearchMode.value.pop(id)
     },
     addLabel() {
       if (this.label.text == "") {
@@ -144,8 +147,13 @@ export default {
         return;
       }
       this.tasks[this.selectedTaskId.value].labels.push(...this.label.text.split(',').filter(label => {
-        return label != ''
-      }));
+        if (label != '' && !(this.tasks[this.selectedTaskId.value].labels.includes(label))) {
+          return label
+        }
+
+      }).map(label => {
+        return label.trim()
+      }))
       this.label.text = "";
     },
     deleteLabel(label) {
@@ -296,27 +304,36 @@ export default {
       e.preventDefault();
       e.returnValue = "";
     });
+
+
+
+  },
+  mounted() {
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key == "Escape") {
+        this.$refs.myModal.modal.isOpen = false
+      }
+    });
+
+
   },
   // beforeUnmount() {
   //   window.removeEventListener("keydown", this.handleKeyDown);
 
   // },
-  mounted() {
-    setInterval(() => {
-      this.time++
-    }, 1000);
-  },
+
 
   components: { Modal, SideBar, TaskField, DataField, Annotate, DataControls, FrontPage }
 }
 </script>
 
 <template>
+  <Modal ref="myModal" :dataName="dataName" :fileName="fileName" />
   <div v-if="page.name == 'front'">
     <FrontPage :page="page" />
   </div>
   <div v-else>
-    <Modal ref="myModal" :dataName="dataName" :fileName="fileName" />
     <div class="w-full h-[100vh] bg-white grid grid-cols-[250px,1fr] grid-rows-1 overflow-hidden">
       <SideBar :tasks="tasks" :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId" @addTask="addTask"
         @exportTaskFile="exportTaskFile" @deleteTask="deleteTask" @exportFile="exportFile"
@@ -336,13 +353,12 @@ export default {
           :dataName="dataName" />
       </div>
       <div v-if="page.name == 'annotate'">
-        <Annotate ref="annotate" :selectedWordId="selectedWordId" :searchingSentence="searchingSentence" :page="page"
-          :data="data" :tasks="tasks" :selectedTaskId="selectedTaskId" @setLabel="setLabel"
-          :selectedLabelId="selectedLabelId" @nextSentence="nextSentence" @prevSentence="prevSentence"
-          :currentSentenceId="currentSentenceId" @nextTask="nextTask" @prevTask="prevTask"
-          @searchSentence="searchSentence" :searchBarOpen="searchBarOpen" />
+        <Annotate ref="annotate" :taskSearchMode="taskSearchMode" :selectedWordId="selectedWordId"
+          :searchingSentence="searchingSentence" :page="page" :data="data" :tasks="tasks"
+          :selectedTaskId="selectedTaskId" @setLabel="setLabel" :selectedLabelId="selectedLabelId"
+          @nextSentence="nextSentence" @prevSentence="prevSentence" :currentSentenceId="currentSentenceId"
+          @nextTask="nextTask" @prevTask="prevTask" @searchSentence="searchSentence" :searchBarOpen="searchBarOpen" />
       </div>
     </div>
   </div>
 </template>
-

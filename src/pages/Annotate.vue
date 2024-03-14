@@ -11,12 +11,12 @@ export default {
       flag: false,
       timer_start: new Date(),
       timer_stop: null,
-      searchMode: false,
       searchContains: { value: false },
       search: { value: '' }
     }
   },
   props: {
+    taskSearchMode: Object,
     page: String,
     data: Array,
     tasks: Array,
@@ -126,7 +126,7 @@ export default {
 
       }
 
-      if (0 < parseInt(event.key) && parseInt(event.key) < this.tasks[this.selectedTaskId.value]?.labels.length + 1 && !this.searchMode.value) {
+      if (0 < parseInt(event.key) && parseInt(event.key) < this.tasks[this.selectedTaskId.value]?.labels.length + 1) {
         this.selectedLabelId.value = event.key - 1;
         if (!this.tasks[this.selectedTaskId.value].type.isWordLevel) {
           this.data[this.currentSentenceId.value].strings.find(string => string.name == this.tasks[this.selectedTaskId.value].output_index).string = this.tasks[this.selectedTaskId.value].labels[event.key - 1]
@@ -177,6 +177,7 @@ export default {
     window.addEventListener("keydown", this.handleKeyDown);
 
 
+
   },
   beforeUnmount() {
     clearInterval(this.timer);
@@ -194,7 +195,7 @@ export default {
         <p class="text-xs text-gray-400">Progress:</p>
         <div class="bg-gray-300 overflow-hidden rounded-full flex-1 h-4 flex">
           <div @click="this.currentSentenceId.value = index"
-            :class="index == currentSentenceId.value ? 'bg-white' : JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'accepted' ? 'bg-green-400' : JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'rejected' ? 'bg-red-400' : JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'unsure' ? 'bg-yellow-400' : null"
+            :class="{ 'bg-white': index == currentSentenceId.value, 'bg-green-400': JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'accepted', 'bg-red-400': JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'rejected', 'bg-yellow-400': JSON.parse(this.data[index].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'unsure' }"
             v-for="(item, index) in  data" class="flex-grow bg-gray-300">
           </div>
 
@@ -210,18 +211,21 @@ export default {
     <div class="flex flex-col gap-6 w-[calc(100vw-250px)] overflow-hidden">
       <div class="border-4 m-auto rounded-xl"
         :class="JSON.parse(this.data[this.currentSentenceId.value].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'accepted' ? 'border-green-400 border-4 rounded-sm' : JSON.parse(this.data[this.currentSentenceId.value].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'rejected' ? 'border-red-400 border-4 rounded-sm' : JSON.parse(this.data[this.currentSentenceId.value].strings.find(string => string.name == '# status').string)[selectedTaskId.value.toString()] == 'unsure' ? 'border-yellow-400 border-4 rounded-sm' : null">
-        <Seq ref="seq" v-if="tasks[selectedTaskId.value]?.type.name == 'seq'" :data="data" :tasks="tasks"
-          :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId" :selectedWordId="selectedWordId"
-          :currentSentenceId="currentSentenceId" :searchBarOpen="searchBarOpen" :listIndex="listIndex"
-          :searchMode="searchMode" :search="search" :searchContains="searchContains" :filteredLabels="filteredLabels" />
-        <SeqBio v-if="tasks[selectedTaskId.value]?.type.name == 'span'" ref="span" :data="data" :tasks="tasks"
-          :listIndex="listIndex" :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId"
-          :selectedWordId="selectedWordId" :currentSentenceId="currentSentenceId" :searchBarOpen="searchBarOpen"
-          :searchMode="searchMode" :search="search" :searchContains="searchContains" :filteredLabels="filteredLabels" />
-        <Class ref="class" v-if="tasks[selectedTaskId.value]?.type.name == 'class'" :data="data" :tasks="tasks"
-          :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId" :currentSentenceId="currentSentenceId"
-          :searchMode="searchMode" :listIndex="listIndex" :searchBarOpen="searchBarOpen" :search="search"
+        <Seq ref="seq" v-if="tasks[selectedTaskId.value]?.type.name == 'seq'" :data="data"
+          :taskSearchMode="taskSearchMode" :tasks="tasks" :selectedLabelId="selectedLabelId"
+          :selectedTaskId="selectedTaskId" :selectedWordId="selectedWordId" :currentSentenceId="currentSentenceId"
+          :searchBarOpen="searchBarOpen" :listIndex="listIndex" :searchMode="searchMode" :search="search"
           :searchContains="searchContains" :filteredLabels="filteredLabels" />
+        <SeqBio v-if="tasks[selectedTaskId.value]?.type.name == 'span'" ref="span" :data="data"
+          :taskSearchMode="taskSearchMode" :tasks="tasks" :listIndex="listIndex" :selectedLabelId="selectedLabelId"
+          :selectedTaskId="selectedTaskId" :selectedWordId="selectedWordId" :currentSentenceId="currentSentenceId"
+          :searchBarOpen="searchBarOpen" :searchMode="searchMode" :search="search" :searchContains="searchContains"
+          :filteredLabels="filteredLabels" />
+        <Class ref="class" :taskSearchMode="taskSearchMode" v-if="tasks[selectedTaskId.value]?.type.name == 'class'"
+          :data="data" :tasks="tasks" :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId"
+          :currentSentenceId="currentSentenceId" :searchMode="searchMode" :listIndex="listIndex"
+          :searchBarOpen="searchBarOpen" :search="search" :searchContains="searchContains"
+          :filteredLabels="filteredLabels" />
         <Seq2Seq v-if="tasks[selectedTaskId.value]?.type.name == 'seq2seq'" :data="data" :tasks="tasks"
           :selectedLabelId="selectedLabelId" :selectedTaskId="selectedTaskId" :currentSentenceId="currentSentenceId" />
 
@@ -235,10 +239,10 @@ export default {
           <font-awesome-icon icon="fa-solid fa-chevron-left" class="" />
         </div>
         <p v-if="!searchingSentence.value" @click="searchingSentence.value = true; $nextTick(() => {
-          $refs.sentenceSearch.focus()
-        })" class="flex">{{
-  currentSentenceId.value + 1 }} / {{
-    data.length }}</p>
+              $refs.sentenceSearch.focus()
+            })" class="flex">{{
+              currentSentenceId.value + 1 }} / {{
+              data.length }}</p>
         <input @keydown.enter="event => $emit('searchSentence', event)" @blur="event => $emit('searchSentence', event)"
           ref="sentenceSearch" class="w-16 rounded-md outline-none bg-gray-300 text-center"
           @change="event => $emit('searchSentence', event)" v-if="searchingSentence.value" type="text">
