@@ -219,10 +219,10 @@ export default {
               let data = reader.result.split("\n")
               data = data.filter(d => d != [])
               this.data = data.map((sentence, index) => {
-                const words = sentence.match(/\w+|[^\w\s]+/g).map((word, index) => {
-                  return [index + 1, word]
-
+                const words = sentence.match(/[a-zA-ZæøåÆØÅ0-9]+(?:-[a-zA-ZæøåÆØÅ0-9]+)?|[^\w\s]+/g).map((word, index) => {
+                  return [index + 1, word];
                 });
+                console.log(words)
                 const strings = [{ name: '# sent_id', string: index }, { name: '# text', string: sentence }]
                 if (!strings.some(string => string.name == '# status')) {
                   strings.push({ name: '# status', string: '{}' })
