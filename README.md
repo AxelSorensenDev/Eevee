@@ -1,4 +1,5 @@
 # Eevee: An Easy Annotation Tool
+Developed by: Axel Sorensen (https://www.linkedin.com/in/axel-sorensen/)
 
 ## Installation
 There is no need to install, just go to https://axelsorensendev.github.io/Eevee/ and get started!
