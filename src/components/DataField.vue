@@ -12,7 +12,7 @@
 
     </div>
     <div v-if="data.length > 0" class="p-2 bg-purple-200 w-full text-xs text-gray-700 flex gap-2">File: {{ dataName
-    }}
+      }}
 
       <div
         @click="refs.myModal.createModal('Remove data', `Are you sure you want to remove the imported data?`, [{ text: 'Cancel', action: () => refs.myModal.modal.isOpen = false }, { text: 'Remove', action: () => { $emit('clearData', index); refs.myModal.modal.isOpen = false }, color: 'bg-red-600 hover:bg-red-700' }])"
