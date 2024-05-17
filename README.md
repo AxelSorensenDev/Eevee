@@ -1,5 +1,6 @@
 # Eevee: An Easy Annotation Tool
-Developed by: Axel Sorensen (https://www.linkedin.com/in/axel-sorensen/)\n
+Developed by: Axel Sorensen (https://www.linkedin.com/in/axel-sorensen/)
+
 Accompanying paper: https://aclanthology.org/2024.law-1.20/
 
 ## Installation
