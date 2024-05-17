@@ -1,5 +1,6 @@
 # Eevee: An Easy Annotation Tool
 Developed by: Axel Sorensen (https://www.linkedin.com/in/axel-sorensen/)
+Accompanying paper: https://aclanthology.org/2024.law-1.20/
 
 ## Installation
 There is no need to install, just go to https://axelsorensendev.github.io/Eevee/ and get started!
@@ -66,3 +67,24 @@ python3 scripts/eevee2machamp.py pokemon.json and pokemon.conll
 
 The script will produce a MaChAmp dataset configuration file and the training command.
 
+## Citation
+If you use the Eevee annotation tool in your projects, please cite us
+```
+@inproceedings{sorensen-etal-2024-eevee,
+    title = "{EEVEE}: An Easy Annotation Tool for Natural Language Processing",
+    author = "Sorensen, Axel  and
+      Peng, Siyao  and
+      Plank, Barbara  and
+      Van Der Goot, Rob",
+    editor = "Henning, Sophie  and
+      Stede, Manfred",
+    booktitle = "Proceedings of The 18th Linguistic Annotation Workshop (LAW-XVIII)",
+    month = mar,
+    year = "2024",
+    address = "St. Julians, Malta",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.law-1.20",
+    pages = "216--221",
+    abstract = "Annotation tools are the starting point for creating Natural Language Processing (NLP) datasets. There is a wide variety of tools available; setting up these tools is however a hindrance. We propose Eevee, an annotation tool focused on simplicity, efficiency, and ease of use. It can run directly in the browser (no setup required) and uses tab-separated files (as opposed to character offsets or task-specific formats) for annotation. It allows for annotation of multiple tasks on a single dataset and supports four task-types: sequence labeling, span labeling, text classification and seq2seq.",
+}
+````
